@@ -179,7 +179,8 @@ class LdapSetting
   def user_field(ldap_attr)
     ldap_attr = ldap_attr.to_s
     result = @user_standard_ldap_attrs.find {|(k, v)| v.downcase == ldap_attr }.try(:first)
-    result ||= user_ldap_attrs.find {|(k, v)| v.downcase == ldap_attr }.try(:first)
+    user_ldap_attrs.permit!
+    result ||= user_ldap_attrs.to_h.find {|(k, v)| v.downcase == ldap_attr }.try(:first)
   end
 
   def test
