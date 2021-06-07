@@ -42,10 +42,15 @@ $(function() {
   }
 
   function show_dyngroups_ttl(elem) {
-    if ($(elem).val() == 'enabled_with_ttl')
+    if ($(elem).val() == 'enabled_with_ttl') {
       $('#dyngroups-cache-ttl').show();
-    else
+      $('[name="ldap_setting[dyngroups_cache_ttl]"]').attr('required','required');
+      $('[for="ldap_setting_dyngroups_cache_ttl"]').addClass('required').append("<span class='required'>*</span>");
+    } else {
       $('#dyngroups-cache-ttl').hide();
+      $('[name="ldap_setting[dyngroups_cache_ttl]"]').removeAttr('required');
+      $('[for="ldap_setting_dyngroups_cache_ttl"] > span').remove();
+    }
   }
 
   show_options($('#ldap_setting_group_membership'), 'membership');
